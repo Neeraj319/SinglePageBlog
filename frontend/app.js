@@ -2,7 +2,8 @@ const containerDIv = document.querySelector(".container");
 const mainDiv = document.createElement("div");
 const addBlog = document.querySelector(".add-blog");
 
-const token = localStorage.getItem("token");
+var token = document.cookie.split("=");
+token = token[0] + " " + token[1];
 containerDIv.appendChild(mainDiv);
 mainDiv.classList.add("main-div");
 
@@ -14,7 +15,7 @@ function allBlogs() {
   fetch("http://127.0.0.1:8000/", {
     method: "GET",
     headers: {
-      Authorization: "Token " + token,
+      Authorization: token,
     },
   })
     .then((res) => {
@@ -69,12 +70,12 @@ function allBlogs() {
 let isForm = false;
 
 function addForm(e) {
-  // mainDiv.remove();
   isForm = !isForm;
   e.target.innerText = isForm ? "home" : "add blog";
   if (isForm) {
     const formDiv = document.querySelector(".form-div");
     mainDiv.style.display = "none";
+    // mainDiv.remove();
     if (formDiv) {
       formDiv.style.display = "block";
       return;
@@ -120,7 +121,7 @@ function postBlog() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token " + token,
+        Authorization: token,
       },
       body: JSON.stringify({
         title: title.value,
@@ -132,6 +133,7 @@ function postBlog() {
           res.json().then((data) => {
             const formDIv = document.querySelector(".form-div");
             formDIv.remove();
+            console.log("hello");
             allBlogs();
           });
         } else {
@@ -163,6 +165,7 @@ function login() {
       if (res.ok) {
         res.json().then((token) => {
           saveToken(token);
+          allBlogs();
         });
       } else {
         alert("invalid username or password");
@@ -174,17 +177,13 @@ function login() {
 }
 
 function saveToken(token) {
-  let tokens;
-  if (localStorage.getItem("token") === null) {
-    tokens = [];
-  } else {
-    token = JSON.parse(localStorage.getItem("token"));
-  }
-  tokens = [];
-  tokens.push(token);
-  localStorage.setItem("token", tokens);
+  var now = new Date();
+  var time = now.getTime();
+  var expireTime = time + 1000 * 36000;
+  now.setTime(expireTime);
+  document.cookie = `Token =${token};expires=` + now.toUTCString() + ";path=/";
+  //console.log(document.cookie);  // 'Wed, 31 Oct 2012 08:50:17 UTC'
 }
-
 // function signup(e) {
 //   e.target.innerText = "login";
 //   addBlog.addEventListener("click", login);
