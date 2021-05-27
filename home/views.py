@@ -26,12 +26,3 @@ class AllBolgView(APIView):
             print(serializer)
             print(serializer.errors)
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
-
-# class BlogsView(ModelViewSet):
-#     serializer_class = BlogSerializer
-#     queryset = Blog.objects.all()
-    
-
-#     def get_serializer_context(self):
-        
-#         return super().get_serializer_context()

@@ -2,6 +2,7 @@ const containerDIv = document.querySelector(".container");
 const mainDiv = document.createElement("div");
 const addBlog = document.querySelector(".add-blog");
 
+const token = localStorage.getItem("token");
 containerDIv.appendChild(mainDiv);
 mainDiv.classList.add("main-div");
 
@@ -13,7 +14,7 @@ function allBlogs() {
   fetch("http://127.0.0.1:8000/", {
     method: "GET",
     headers: {
-      Authorization: "Token c4b57ca0c6a0fe6e60806cf4357735999a9e0047",
+      Authorization: "Token " + token,
     },
   })
     .then((res) => {
@@ -39,7 +40,25 @@ function allBlogs() {
           }
         });
       } else {
-        console.log(res);
+        if (res.status == 401) {
+          const loginDIv = document.createElement("div");
+          loginDIv.classList.add("login-div");
+          containerDIv.append(loginDIv);
+          const usernameInput = document.createElement("input");
+          usernameInput.setAttribute("placeholder", "username");
+          usernameInput.classList.add("form-control", "username-input");
+          loginDIv.appendChild(usernameInput);
+          const passwordInput = document.createElement("input");
+          passwordInput.setAttribute("type", "password");
+          passwordInput.classList.add("form-control", "pass-input");
+          passwordInput.setAttribute("placeholder", "password");
+          loginDIv.appendChild(passwordInput);
+          const loginButton = document.createElement("button");
+          loginButton.classList.add("btn", "btn-white", "btn-lg", "btn-block");
+          loginButton.innerText = "login";
+          loginDIv.appendChild(loginButton);
+          loginButton.addEventListener("click", login);
+        }
       }
     })
     .catch((error) => {
@@ -101,7 +120,7 @@ function postBlog() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token c4b57ca0c6a0fe6e60806cf4357735999a9e0047",
+        Authorization: "Token " + token,
       },
       body: JSON.stringify({
         title: title.value,
@@ -122,5 +141,52 @@ function postBlog() {
       .catch((error) => {
         console.log(error);
       });
+  } else {
+    alert("fields can't be empty");
   }
 }
+
+function login() {
+  const usernameInput = document.querySelector(".username-input");
+  const passwordInput = document.querySelector(".pass-input");
+  if (usernameInput.value && passwordInput.value) {
+    fetch("http://127.0.0.1:8000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: usernameInput.value,
+        password: passwordInput.value,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((token) => {
+          saveToken(token);
+        });
+      } else {
+        alert("invalid username or password");
+      }
+    });
+  } else {
+    alert("please provide the following credentials");
+  }
+}
+
+function saveToken(token) {
+  let tokens;
+  if (localStorage.getItem("token") === null) {
+    tokens = [];
+  } else {
+    token = JSON.parse(localStorage.getItem("token"));
+  }
+  tokens = [];
+  tokens.push(token);
+  localStorage.setItem("token", tokens);
+}
+
+// function signup(e) {
+//   e.target.innerText = "login";
+//   addBlog.addEventListener("click", login);
+//   console.log("sign up page");
+// }

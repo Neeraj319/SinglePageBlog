@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     'home',
+    'Auth',
     'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.admin',
