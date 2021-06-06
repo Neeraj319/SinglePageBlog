@@ -4,6 +4,7 @@ const addBlog = document.querySelector(".add-blog");
 
 var token = document.cookie.split("=");
 token = token[0] + " " + token[1];
+console.log(token);
 containerDIv.appendChild(mainDiv);
 mainDiv.classList.add("main-div");
 
@@ -15,7 +16,7 @@ function allBlogs() {
   fetch("http://127.0.0.1:8000/", {
     method: "GET",
     headers: {
-      Authorization: token,
+      Authorization: "Token e15587e3ab0251f6e003bcfde045b1871cc3ce17",
     },
   })
     .then((res) => {
