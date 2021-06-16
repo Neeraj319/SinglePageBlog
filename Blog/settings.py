@@ -33,7 +33,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     "home",
     "Auth",
-    "graphene_django",
     'corsheaders',
     "rest_framework",
     "rest_framework.authtoken",
