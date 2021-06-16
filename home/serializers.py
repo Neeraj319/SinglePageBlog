@@ -54,13 +54,12 @@ class AddCommentSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    blog = BlogSerializer(required=False)
     like = UserSerializer(read_only=True, many=True)
     user = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ["blog", "id", "text", "like", "user"]
+        fields = ["id", "text", "like", "user"]
 
 
 class BlogLikeSerializer(serializers.ModelSerializer):

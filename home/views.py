@@ -15,20 +15,22 @@ from .models import Blog, Comment
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
-
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
 class AllBlogView(APIView):
-    # permission_classes = [IsAuthenticated]
-    # authentication_classes = [TokenAuthentication]
+
+    authentication_classes = [TokenAuthentication]
+
     def get(self, request):
         blogs = Blog.objects.all().order_by("-date_created")
         serializer = BlogSerializer(blogs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = BlogSerializer(data=request.data, context={"user": request.user})
+        serializer = BlogSerializer(
+            data=request.data, context={"user": request.user})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -40,6 +42,7 @@ class AllBlogView(APIView):
 
 class PostComment(APIView):
     authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self, id):
         post = Blog.objects.get(id=id)
@@ -76,7 +79,7 @@ class AddLikeToBlog(APIView):
     you can check if the user has liked or not by using this endpoint by hitting get request here :)
     """
 
-    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
 
     def get_queryset(self, id):
         return Blog.objects.get(id=id)
@@ -114,4 +117,15 @@ class FilterSearch(APIView):
         query = request.GET["query"]
         blogs = self.get_queryset(query=query)
         serializer = BlogSerializer(blogs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class DetailBlog(APIView):
+
+    def get_queryset(self, id):
+        return Blog.objects.get(id=id)
+
+    def get(self, request, id):
+        blog = self.get_queryset(id=id)
+        serializer = BlogSerializer(blog)
         return Response(serializer.data, status=status.HTTP_200_OK)
