@@ -29,4 +29,7 @@ sudo docker-compose up --build
 
 #### NOTE: make sure to comment out line no 4 and 6 in entrypoint.sh after building the image  
 
-##### Visit /docs for the documentation of the API
+
+
+##### Visit http://localhost:8000/docs for the documentation of the API
+##### Visit http://localhost:3000 fro the frontend
