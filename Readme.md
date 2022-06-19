@@ -32,4 +32,4 @@ sudo docker-compose up --build
 
 
 ##### Visit http://localhost:8000/docs for the documentation of the API
-##### Visit http://localhost:3000 fro the frontend
+##### Visit http://localhost:3000 for the frontend
