@@ -1,21 +1,19 @@
 from home.models import Blog
 from home.serializers import BlogSerializer
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import RetrieveAPIView
 from .serializers import UserProfileSerializer
-# Create your views here.
 
 
 class LoginView(APIView):
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
+        username = request.data.get("username")
+        password = request.data.get("password")
         user = authenticate(username=username, password=password)
         if user is not None:
             token, _ = Token.objects.get_or_create(user=user)
@@ -26,14 +24,16 @@ class LoginView(APIView):
 
 class SignUp(APIView):
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
+        username = request.data.get("username")
+        password = request.data.get("password")
         print(username, password)
         user = User(username=username, password=password)
         user.set_password(password)
         user.save()
         if user:
-            return Response({'message': 'user created successfully'}, status=status.HTTP_201_CREATED)
+            return Response(
+                {"message": "user created successfully"}, status=status.HTTP_201_CREATED
+            )
         else:
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -45,7 +45,7 @@ class UserProfile(APIView):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def get(self, request,  username):
+    def get(self, request, username):
         user = self.get_user(username=username)
         print(user)
         serializer = UserProfileSerializer(user)
@@ -57,7 +57,7 @@ class GetUsername(APIView):
 
     def get(self, request):
 
-        return Response({'username': request.user.username}, status=status.HTTP_200_OK)
+        return Response({"username": request.user.username}, status=status.HTTP_200_OK)
 
 
 class GetUserBlogs(APIView):

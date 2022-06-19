@@ -16,7 +16,6 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
-# Create your views here.
 
 
 class AllBlogView(APIView):
@@ -29,8 +28,7 @@ class AllBlogView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = BlogSerializer(
-            data=request.data, context={"user": request.user})
+        serializer = BlogSerializer(data=request.data, context={"user": request.user})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -75,7 +73,6 @@ class ShowCommentsView(APIView):
 
 class AddLikeToBlog(APIView):
     """
-    i made did not a separate made the endpoint to check if user has liked the blog or not
     you can check if the user has liked or not by using this endpoint by hitting get request here :)
     """
 
@@ -121,7 +118,6 @@ class FilterSearch(APIView):
 
 
 class DetailBlog(APIView):
-
     def get_queryset(self, id):
         return Blog.objects.get(id=id)
 
