@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import dotenv
+import os
+
+dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,7 +37,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     "home",
     "Auth",
-    'corsheaders',
+    "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
     "django.contrib.admin",
@@ -57,19 +61,18 @@ MIDDLEWARE = [
 ]
 ROOT_URLCONF = "Blog.urls"
 MIDDLEWARE_CLASSES = (
-
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 )
 
 # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3030',
+    "http://localhost:3030",
 ]  # If this is used, then not need to use `CORS_ORIGIN_ALLOW_ALL = True`
 CORS_ORIGIN_REGEX_WHITELIST = [
-    'http://localhost:3030',
+    "http://localhost:3030",
 ]
 
 GRAPHENE = {"SCHEMA": "app.schema.schema"}  # Where your Graphene schema lives
@@ -97,9 +100,14 @@ WSGI_APPLICATION = "Blog.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # write config for postgres
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 

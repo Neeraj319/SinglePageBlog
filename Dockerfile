@@ -13,3 +13,5 @@ RUN ["poetry", "install", "--no-interaction", "--no-ansi"]
 
 
 COPY . /app/
+
+ENTRYPOINT ["/app/entrypoint.sh"]
