@@ -37,6 +37,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     "home",
     "Auth",
+    "coreapi",
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
@@ -74,8 +75,8 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ORIGIN_REGEX_WHITELIST = [
     "http://localhost:3030",
 ]
+REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema"}
 
-GRAPHENE = {"SCHEMA": "app.schema.schema"}  # Where your Graphene schema lives
 
 TEMPLATES = [
     {

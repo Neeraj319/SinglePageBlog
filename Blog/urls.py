@@ -18,8 +18,11 @@ from django.urls import path
 from django.urls.conf import include
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.documentation import include_docs_urls
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
     path("auth/", include("Auth.urls")),
+    path("docs/", include_docs_urls(title="Omicron SMS Docs")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
