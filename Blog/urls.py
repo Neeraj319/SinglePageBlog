@@ -24,5 +24,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
     path("auth/", include("Auth.urls")),
-    path("docs/", include_docs_urls(title="Omicron SMS Docs")),
+    path("docs/", include_docs_urls(title="SinglePageBlog Docs")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
