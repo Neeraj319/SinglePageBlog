@@ -1,4 +1,4 @@
-# CodeShare API
+# SinglePageBlog
 
 A blog writing platform written in DjangoRestFramework and React.
 
