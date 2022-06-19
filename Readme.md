@@ -4,7 +4,7 @@ A blog writing platform written in DjangoRestFramework and React.
 
 ## Run Locally
 
-#### Note: Make .env file and add configurations according to .enc.example
+#### Note: Make .env file and add configurations according to .env.example
 
 - with Docker (recommended)
 - without Docker (not recommended)
