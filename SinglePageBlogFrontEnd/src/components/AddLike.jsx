@@ -15,7 +15,7 @@ function AddLike({ id }) {
     } else {
       axios
         .post(
-          `https://singleblog.pythonanywhere.com/like_blog/${id}`,
+          `http://127.0.0.1:8000/like_blog/${id}`,
           {},
           {
             headers: {
@@ -34,7 +34,7 @@ function AddLike({ id }) {
   };
   useEffect(() => {
     axios
-      .get(`https://singleblog.pythonanywhere.com/like_blog/${id}`)
+      .get(`http://127.0.0.1:8000/like_blog/${id}`)
       .then((res) => {
         if (res.data.liked) {
           setLike((like) => !like);

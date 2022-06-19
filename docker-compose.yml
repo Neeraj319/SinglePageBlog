@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  fronend:
+  frontend:
     build: ./SinglePageBlogFrontEnd
     volumes:
       - ./SinglePageBlogFrontEnd/:/frontend

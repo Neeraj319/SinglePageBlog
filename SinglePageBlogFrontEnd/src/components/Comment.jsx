@@ -14,7 +14,7 @@ function Comment({ id }) {
   }
   const fetchComments = () => {
     axios
-      .get(`https://singleblog.pythonanywhere.com/comments/${id}`)
+      .get(`http://127.0.0.1:8000/comments/${id}`)
       .then((res) => {
         if (res.status == 200) {
           console.log(res.data);

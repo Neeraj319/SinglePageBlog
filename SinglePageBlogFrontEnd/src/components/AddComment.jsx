@@ -15,7 +15,7 @@ export default function AddComment({ id }) {
       } else {
         axios
           .post(
-            `https://singleblog.pythonanywhere.com/add_comment/${id}`,
+            `http://127.0.0.1:8000/add_comment/${id}`,
             {
               text: comment,
             },

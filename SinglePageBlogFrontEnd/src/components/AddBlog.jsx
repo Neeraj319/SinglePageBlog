@@ -14,7 +14,7 @@ function AddBlog() {
       } else {
         axios
           .post(
-            "https://singleblog.pythonanywhere.com/",
+            "http://127.0.0.1:8000/",
             {
               title: title,
               body: body,

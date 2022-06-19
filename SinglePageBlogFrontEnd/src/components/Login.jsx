@@ -14,7 +14,7 @@ function Login() {
       } else {
         axios
           .post(
-            "https://singleblog.pythonanywhere.com/auth/login",
+            "http://127.0.0.1:8000/auth/login",
             {
               username: username,
               password: password,

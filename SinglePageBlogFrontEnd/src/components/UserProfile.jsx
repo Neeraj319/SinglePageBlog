@@ -17,8 +17,8 @@ function UserProfile({ match }) {
   useEffect(() => {
     axios
       .get(
-        "https://singleblog.pythonanywhere.com/auth/user/" +
-          match.url.split("/")[2],
+        "http://127.0.0.1:8000/auth/user/" +
+        match.url.split("/")[2],
         {
           headers: {
             Authorization: token.token,

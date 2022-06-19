@@ -10,7 +10,7 @@ function DetailBlog({ match }) {
   const history = useHistory();
   useEffect(() => {
     axios
-      .get(`https://singleblog.pythonanywhere.com/blog/${id}`)
+      .get(`http://127.0.0.1:8000/blog/${id}`)
       .then((res) => {
         if (res.status == 200) {
           const data = res.data;

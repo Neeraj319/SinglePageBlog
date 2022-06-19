@@ -17,7 +17,7 @@ export default function UserBlogs({ username }) {
   }
   useEffect(() => {
     axios
-      .get("https://singleblog.pythonanywhere.com/auth/userblogs", {
+      .get("http://127.0.0.1:8000/auth/userblogs", {
         headers: {
           Authorization: check_validation.token,
         },
@@ -36,12 +36,12 @@ export default function UserBlogs({ username }) {
       {Blog.length === 0
         ? "No Blogs"
         : Blog.map((data) => (
-            <div className="card-text">
-              <Link to={`/blog/${data.id}`} className="text-dark">
-                <h5 className="text-dark">{data.title}</h5>
-              </Link>
-            </div>
-          ))}
+          <div className="card-text">
+            <Link to={`/blog/${data.id}`} className="text-dark">
+              <h5 className="text-dark">{data.title}</h5>
+            </Link>
+          </div>
+        ))}
     </div>
   );
 }

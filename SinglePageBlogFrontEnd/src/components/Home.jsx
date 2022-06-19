@@ -6,7 +6,7 @@ export default function Home() {
   const [Blog, setBlog] = useState([]);
   useEffect(() => {
     axios
-      .get("https://singleblog.pythonanywhere.com/")
+      .get("http://127.0.0.1:8000/")
       .then((res) => {
         if (res.status == 200) {
           setBlog(res.data);

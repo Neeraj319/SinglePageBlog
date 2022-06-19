@@ -15,7 +15,7 @@ export default function SignUp() {
       } else {
         axios
           .post(
-            "https://singleblog.pythonanywhere.com/auth/signup",
+            "http://127.0.0.1:8000/auth/signup",
             {
               username: username,
               password: password,

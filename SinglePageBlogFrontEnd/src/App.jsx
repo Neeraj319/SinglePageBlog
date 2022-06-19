@@ -18,7 +18,7 @@ function App() {
   if (token !== "") {
     useEffect(() => {
       axios
-        .get("https://singleblog.pythonanywhere.com/auth/username", {
+        .get("http://127.0.0.1:8000/auth/username", {
           headers: {
             Authorization: token,
           },
